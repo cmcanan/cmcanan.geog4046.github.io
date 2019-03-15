@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Integrate 2D and 3D Views</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.7/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.7/"></script>
+
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+	
+	#viewDiv_2d {
+		float: left;		
+		height: 100%;
+		width: 49.9%;
+	}
+	
+	#viewDiv_3d {
+		float: right;
+		height: 100%;
+		width: 49.9%;				
+	}
+  </style>
+
+  <script>
+    require([
+        "esri/views/MapView",
+        "esri/views/SceneView", 
+		"esri/WebMap",
+		"esri/WebScene",		
+        "dojo/domReady!"
+      ],
+      function(
+        MapView, SceneView, WebMap, WebScene
+      ) {
+
+      	var view_2d, view_3d;
+		create_2dView();
+		create_3dView();
+		
+		function create_2dView() {
+			  var webmap = new WebMap({
+				portalItem: {
+				  id: "08656515afaf4d0587d4f99b9909ddfc"
+				}
+			  });
+
+			  view_2d = new MapView({
+				map: webmap,
+				container: "viewDiv_2d"
+			  });
+
+/*			view_2d.when(function() {
+				view_2d.watch("extent", function(response){
+					if (response){
+						view_3d.center = response.center;
+					}
+				});
+				
+
+				view_2d.watch("scale", function(response){
+					if (response){
+						view_3d.scale = response;
+					}
+				});
+				
+				view_2d.watch("rotation", function(response){
+					if (response){
+						view_3d.goTo({
+							heading: 0 - response
+						});
+					}
+				});				
+			});	*/
+
+		}
+		
+		function create_3dView() {
+			  var scene = new WebScene({
+				portalItem: {
+				  id: "ae2631226f9b4883942a1d2423e29772"
+				}
+			  });
+
+			  view_3d = new SceneView({
+				map: scene,
+				container: "viewDiv_3d"
+			  });		
+		}
+		
+      });
+  </script>
+</head>
+
+<body>
+	<div id="viewDiv_2d"></div>
+	<div id="viewDiv_3d"></div>
+</body>
+
+</html>
