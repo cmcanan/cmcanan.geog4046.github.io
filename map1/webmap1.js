@@ -11,5 +11,12 @@ let myPolygon = L.polygon([
   [29.198470, -90.040388],
   [29.209122, -90.048133]
 ]).addTo(myMap);
+var latlngs = [
+    [29.262201, -89.961229],
+    [29.204188, -90.040088]
+];
+var polyline = L.polyline(latlngs, {color: 'red'}).addTo(myMap);
+// zoom the map to the polyline
+MyMap.fitBounds(polyline.getBounds());
 gifd.bindPopup('<em>GIFD </em>')
 myPolygon.bindPopup('GIFD service area')
